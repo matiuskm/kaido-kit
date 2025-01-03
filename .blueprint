@@ -1,0 +1,7 @@
+created:
+    - database/factories/PostFactory.php
+    - database/migrations/2025_01_03_090101_create_posts_table.php
+    - app/Models/Post.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Post: { title: 'string:400', content: longText, published_at: 'nullable timestamp' }

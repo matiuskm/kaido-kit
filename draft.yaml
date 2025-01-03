@@ -1,0 +1,8 @@
+models:
+  Post:
+    title: string:400
+    content: longText
+    published_at: nullable timestamp
+
+controllers:
+  # ...

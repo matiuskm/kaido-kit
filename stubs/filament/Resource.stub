@@ -37,7 +37,10 @@ class {{ resourceClass }} extends Resource
 {{ tableFilters }}
             ])
             ->actions([
-{{ tableActions }}
+                Tables\Actions\ActionGroup::make([
+    {{ tableActions }}
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
