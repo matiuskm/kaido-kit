@@ -57,7 +57,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
     }
 
-    public function canAccessPanel(Panel $panel): boolean {
+    public function canAccessPanel(Panel $panel): bool {
         return true;
     }
 }
