@@ -11,12 +11,13 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.

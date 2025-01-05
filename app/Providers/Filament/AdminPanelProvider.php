@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Login;
 use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -19,6 +20,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Rupadana\ApiService\ApiServicePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -26,9 +28,12 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->brandLogo(fn () => view('vendor.filament.components.brand'))
+            ->darkModeBrandLogo(fn () => view('vendor.filament.components.brand-dark'))
+            ->favicon(asset('images/logo-kk.png'))
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(Login::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -57,7 +62,21 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make()
+                    ->gridColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'lg' => 3
+                    ])
+                    ->sectionColumnSpan(1)
+                    ->checkboxListColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                    ])
+                    ->resourceCheckboxListColumns([
+                        'default' => 1,
+                        'sm' => 2,
+                    ]),
                 BreezyCore::make()
                     ->myProfile(
                         shouldRegisterUserMenu: true,
@@ -68,6 +87,7 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->enableTwoFactorAuthentication()
                     ->avatarUploadComponent(fn($fileUpload) => $fileUpload->disableLabel()),
+                ApiServicePlugin::make()
             ]);
     }
 }
