@@ -19,7 +19,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
             $user->tokens()->delete();
-            $token = $user->createToken('token')->plainTextToken;
+            $abilities = $user->getAllPermissions()->pluck('name')->toArray();
+
+            $abilities = array_map(function ($ability) {
+                return explode('_', $ability)[0];
+            }, array_filter($abilities, function ($ability) {
+                return strpos($ability, ':') !== false;
+            }));
+
+            $token = $user->createToken('token', $abilities)->plainTextToken;
 
             return new LoginResource(['user' => $user, 'token' => $token]);
         }
