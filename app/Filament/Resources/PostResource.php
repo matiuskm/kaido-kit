@@ -37,11 +37,11 @@ class PostResource extends Resource implements HasShieldPermissions
             'delete_any',
             'force_delete',
             'force_delete_any',
-            'post:create',
-            'post:update',
-            'post:delete',
-            'post:pagination',
-            'post:detail',
+            'post:create' => 'Create Post API',
+            'post:update' => 'Update Post API',
+            'post:delete' => 'Delete Post API',
+            'post:pagination' => 'List Posts API',
+            'post:detail' => 'Detail Post API',
         ];
     }
 
