@@ -20,12 +20,13 @@ class AuthController extends Controller
             $user = User::where('email', $request->email)->first();
             $user->tokens()->delete();
             $abilities = $user->getAllPermissions()->pluck('name')->toArray();
-
             $abilities = array_map(function ($ability) {
-                return explode('_', $ability)[0];
-            }, array_filter($abilities, function ($ability) {
-                return strpos($ability, ':') !== false;
+                [$action, $object] = explode('_', $ability);
+                return $object . ':' . $action;
+            }, array_filter($abilities, function($item) {
+                return preg_match('/^(create|delete|update|pagination|detail)_[a-z]+$/', $item);
             }));
+            $abilities = array_values($abilities);
 
             $token = $user->createToken('token', $abilities)->plainTextToken;
 

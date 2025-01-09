@@ -45,6 +45,8 @@ return [
             'delete_any',
             'force_delete',
             'force_delete_any',
+            'pagination',
+            'detail'
         ],
 
         'page' => 'page',
@@ -68,7 +70,7 @@ return [
         'enabled' => true,
 
         'pages' => [
-            'Dashboard',
+
         ],
 
         'widgets' => [
@@ -79,7 +81,7 @@ return [
     ],
 
     'discovery' => [
-        'discover_all_resources' => false,
+        'discover_all_resources' => true,
         'discover_all_widgets' => false,
         'discover_all_pages' => false,
     ],
